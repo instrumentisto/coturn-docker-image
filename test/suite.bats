@@ -18,17 +18,17 @@
 }
 
 
-@test "coturn is installed" {
+@test "Coturn is installed" {
   run docker run --rm --entrypoint sh $IMAGE -c 'which turnserver'
   [ "$status" -eq 0 ]
 }
 
-@test "coturn runs ok" {
+@test "Coturn runs ok" {
   run docker run --rm --entrypoint sh $IMAGE -c 'turnserver -h'
   [ "$status" -eq 0 ]
 }
 
-@test "coturn has correct version" {
+@test "Coturn has correct version" {
   run sh -c "cat Makefile | grep 'VERSION ?= ' | cut -d ' ' -f 3"
   [ "$status" -eq 0 ]
   [ ! "$output" = '' ]

@@ -4,14 +4,14 @@ FROM alpine:edge
 MAINTAINER Instrumentisto Team <developer@instrumentisto.com>
 
 
-# Build and install coturn
+# Build and install Coturn
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' \
     # TODO: remove after mongo-c-driver moves to main/community from testing
           >> /etc/apk/repositories \
  && apk update \
  && apk upgrade \
     \
- # Install coturn dependencies
+ # Install Coturn dependencies
  && apk add --no-cache \
         libevent \
         libressl2.7-libcrypto libressl2.7-libssl libressl2.7-libtls \
@@ -22,7 +22,7 @@ RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' \
  && apk add --no-cache --virtual .tool-deps \
         curl coreutils autoconf g++ libtool make \
     \
- # Install coturn build dependencies
+ # Install Coturn build dependencies
  && apk add --no-cache --virtual .build-deps \
         linux-headers \
         libevent-dev \
@@ -30,13 +30,13 @@ RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' \
         postgresql-dev mariadb-connector-c-dev sqlite-dev \
         hiredis-dev mongo-c-driver-dev \
     \
- # Download and prepare coturn sources
+ # Download and prepare Coturn sources
  && curl -fL -o /tmp/coturn.tar.gz \
          https://github.com/coturn/coturn/archive/4.5.0.6.tar.gz \
  && tar -xzf /tmp/coturn.tar.gz -C /tmp/ \
  && cd /tmp/coturn-* \
     \
- # Build cotrun from sources
+ # Build Coturn from sources
  && ./configure --prefix=/usr \
         --turndbdir=/var/lib/coturn \
         --disable-rpath \
@@ -47,7 +47,7 @@ RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' \
         --examplesdir=/tmp/coturn/examples \
  && make \
     \
- # Install and configure coturn
+ # Install and configure Coturn
  && make install \
  # Preserve license file
  && mkdir -p /usr/share/licenses/coturn/ \
