@@ -1,0 +1,2 @@
+# Unchroot lmtp/unix service
+-F lmtp/unix/chroot=y
