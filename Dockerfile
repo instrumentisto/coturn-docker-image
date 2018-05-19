@@ -10,6 +10,10 @@ RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' \
           >> /etc/apk/repositories \
  && apk update \
  && apk upgrade \
+ && apk add --no-cache \
+        ca-certificates \
+        curl \
+ && update-ca-certificates \
     \
  # Install Coturn dependencies
  && apk add --no-cache \
@@ -20,7 +24,7 @@ RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' \
     \
  # Install tools for building
  && apk add --no-cache --virtual .tool-deps \
-        curl coreutils autoconf g++ libtool make \
+        coreutils autoconf g++ libtool make \
     \
  # Install Coturn build dependencies
  && apk add --no-cache --virtual .build-deps \
@@ -61,8 +65,18 @@ RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' \
            /tmp/*
 
 
+COPY rootfs /
+
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh \
+             /usr/local/bin/detect-external-ip.sh \
+ && ln -s /usr/local/bin/detect-external-ip.sh \
+          /usr/local/bin/detect-external-ip
+
+
 EXPOSE 3478 3478/udp
 
-ENTRYPOINT ["/usr/bin/turnserver"]
+VOLUME ["/var/lib/coturn"]
 
-CMD ["-n", "--log-file=stdout"]
+ENTRYPOINT ["docker-entrypoint.sh"]
+
+CMD ["-n", "--log-file=stdout", "--external-ip=$(detect-external-ip)"]
