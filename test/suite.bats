@@ -28,7 +28,9 @@
   [ "$status" -eq 0 ]
 }
 
+# TODO(#2): check on new version
 @test "Coturn has correct version" {
+  skip "-h does not print version anymore"
   run sh -c "cat Makefile | grep 'VERSION ?= ' | cut -d ' ' -f 3"
   [ "$status" -eq 0 ]
   [ ! "$output" = '' ]
