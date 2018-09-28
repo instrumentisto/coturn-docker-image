@@ -12,8 +12,8 @@
 
 
 IMAGE_NAME := instrumentisto/coturn
-VERSION ?= 4.5.0.7
-TAGS ?= 4.5.0.7,4.5.0,4.5,4,latest
+VERSION ?= 4.5.0.8
+TAGS ?= 4.5.0.8,4.5.0,4.5,4,latest
 
 
 comma := ,
