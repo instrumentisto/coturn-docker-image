@@ -18,9 +18,9 @@ RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' \
  # Install Coturn dependencies
  && apk add --no-cache \
         libevent \
-        libressl2.7-libcrypto libressl2.7-libssl libressl2.7-libtls \
+        libcrypto1.1 libssl1.1 \
         libpq mariadb-connector-c sqlite-libs \
-        hiredis mongo-c-driver\
+        hiredis mongo-c-driver \
     \
  # Install tools for building
  && apk add --no-cache --virtual .tool-deps \
@@ -30,7 +30,7 @@ RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' \
  && apk add --no-cache --virtual .build-deps \
         linux-headers \
         libevent-dev \
-        libressl-dev \
+        openssl-dev \
         postgresql-dev mariadb-connector-c-dev sqlite-dev \
         hiredis-dev mongo-c-driver-dev \
     \
