@@ -36,7 +36,7 @@ RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' \
     \
  # Download and prepare Coturn sources
  && curl -fL -o /tmp/coturn.tar.gz \
-         https://github.com/coturn/coturn/archive/4.5.1.0.tar.gz \
+         https://github.com/coturn/coturn/archive/4.5.1.1.tar.gz \
  && tar -xzf /tmp/coturn.tar.gz -C /tmp/ \
  && cd /tmp/coturn-* \
     \
