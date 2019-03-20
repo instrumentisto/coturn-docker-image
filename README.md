@@ -35,7 +35,7 @@ docker run -d -p 3478:3478 -p 49160-49200:49160-49200/udp \
                              --min-port=49160 --max-port=49200
 ```
 
-Or just use host network directly(Recommended):
+Or just use the host network directly (__recommended__, as Docker [performs badly with large port ranges][7]):
 ```bash
 docker run -d --network=host instrumentisto/coturn
 ```
@@ -151,6 +151,7 @@ If you have any problems with or questions about this image, please contact us t
 [4]: http://www.musl-libc.org
 [5]: http://www.etalabs.net/compare_libcs.html
 [6]: https://news.ycombinator.com/item?id=10782897
+[7]: https://github.com/instrumentisto/coturn-docker-image/issues/3
 [91]: https://github.com/coturn/coturn/blob/master/LICENSE
 [92]: https://github.com/instrumentisto/coturn-docker-image/blob/master/LICENSE.md
 
