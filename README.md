@@ -35,7 +35,7 @@ docker run -d -p 3478:3478 -p 49160-49200:49160-49200/udp \
                              --min-port=49160 --max-port=49200
 ```
 
-Or just use host network directly:
+Or just use the host network directly (__recommended__, as Docker [performs badly with large port ranges][7]):
 ```bash
 docker run -d --network=host instrumentisto/coturn
 ```
@@ -48,7 +48,7 @@ By default, default Coturn configuration and CLI options provided in `CMD` [Dock
 1. You may either specify your own configuration file instead.
 
     ```bash
-    docker run -d -p 3478:3478 \
+    docker run -d --network=host \
                -v $(pwd)/my.conf:/etc/coturn/turnserver.conf \
            instrumentisto/coturn
     ```
@@ -56,7 +56,7 @@ By default, default Coturn configuration and CLI options provided in `CMD` [Dock
 2. Or specify command line options directly.
 
     ```bash
-    docker run -d -p 3478:3478 instrumentisto/coturn \
+    docker run -d --network=host instrumentisto/coturn \
                -n --log-file=stdout \
                --min-port=49160 --max-port=49200 \
                --lt-cred-mech --fingerprint \
@@ -68,7 +68,7 @@ By default, default Coturn configuration and CLI options provided in `CMD` [Dock
 3. Or even specify another configuration file.
 
     ```bash
-    docker run -d -p 3478:3478 \
+    docker run -d --network=host  \
                -v $(pwd)/my.conf:/my/coturn.conf \
            instrumentisto/coturn -c /my/coturn.conf
     ```
@@ -77,7 +77,7 @@ By default, default Coturn configuration and CLI options provided in `CMD` [Dock
 
 `detect-external-ip` binary may be used to automatically detect external IP of TURN server in runtime. It's okay to use it multiple times (the value will be evaluated only once).
 ```bash
-docker run -d -p 3478:3478 instrumentisto/coturn \
+docker run -d --network=host instrumentisto/coturn \
            -n --log-file=stdout \
            --external-ip=$(detect-external-ip) \
            --relay-ip=$(detect-external-ip)
@@ -90,7 +90,7 @@ By default, Coturn Docker image persists its data in `/var/lib/coturn` directory
 
 You can speedup Coturn simply by using tmpfs for that:
 ```bash
-docker run -d -p 3478:3478 --mount type=tmpfs,destination=/var/lib/coturn \
+docker run -d --network=host --mount type=tmpfs,destination=/var/lib/coturn \
        instrumentisto/coturn
 ```
 
@@ -151,6 +151,7 @@ If you have any problems with or questions about this image, please contact us t
 [4]: http://www.musl-libc.org
 [5]: http://www.etalabs.net/compare_libcs.html
 [6]: https://news.ycombinator.com/item?id=10782897
+[7]: https://github.com/instrumentisto/coturn-docker-image/issues/3
 [91]: https://github.com/coturn/coturn/blob/master/LICENSE
 [92]: https://github.com/instrumentisto/coturn-docker-image/blob/master/LICENSE.md
 
