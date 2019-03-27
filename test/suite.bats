@@ -30,14 +30,13 @@
 
 # TODO(#2): check on new version
 @test "Coturn has correct version" {
-  skip "-h does not print version anymore"
   run sh -c "cat Makefile | grep 'VERSION ?= ' | cut -d ' ' -f 3"
   [ "$status" -eq 0 ]
   [ ! "$output" = '' ]
   expected="$output"
 
   run docker run --rm --entrypoint sh $IMAGE -c \
-    "turnserver -h | grep 'Version Coturn' | cut -d ' ' -f2 \
+    "turnserver -o | grep 'Version Coturn' | cut -d ' ' -f2 \
                                            | cut -d '-' -f2"
   [ "$status" -eq 0 ]
   [ ! "$output" = '' ]
