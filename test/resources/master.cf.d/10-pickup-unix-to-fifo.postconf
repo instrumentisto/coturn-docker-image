@@ -1,7 +1,0 @@
-# Disable pickup/unix service
--M pickup/unix=#pickup    unix  n       -       n       60      1       pickup
-
-# Enable pickup/fifo service instead and configure it
--M pickup/fifo=pickup    fifo  n       -       n       60      1       pickup
--P pickup/fifo/content_filter=
--P pickup/fifo/receive_override_options=no_header_body_checks
