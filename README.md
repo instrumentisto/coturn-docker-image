@@ -31,7 +31,7 @@ You can change them with `min-port` and `max-port` Coturn configuration options:
 ```bash
 docker run -d -p 3478:3478 -p 49160-49200:49160-49200/udp \
        instrumentisto/coturn -n --log-file=stdout \
-                             --external-ip=$(detect-external-ip) \
+                             --external-ip='$(detect-external-ip)' \
                              --min-port=49160 --max-port=49200
 ```
 
@@ -79,8 +79,8 @@ By default, default Coturn configuration and CLI options provided in `CMD` [Dock
 ```bash
 docker run -d --network=host instrumentisto/coturn \
            -n --log-file=stdout \
-           --external-ip=$(detect-external-ip) \
-           --relay-ip=$(detect-external-ip)
+           --external-ip='$(detect-external-ip)' \
+           --relay-ip='$(detect-external-ip)'
 ```
 
 
