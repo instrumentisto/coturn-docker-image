@@ -39,7 +39,7 @@ RUN apk update \
     \
  # Download and prepare mongo-c-driver sources
  && curl -fL -o /tmp/mongo-c-driver.tar.gz \
-             https://github.com/mongodb/mongo-c-driver/archive/1.14.0.tar.gz \
+             https://github.com/mongodb/mongo-c-driver/archive/1.14.1.tar.gz \
  && tar -xzf /tmp/mongo-c-driver.tar.gz -C /tmp/ \
  && cd /tmp/mongo-c-driver-* \
  # Build mongo-c-driver from sources
