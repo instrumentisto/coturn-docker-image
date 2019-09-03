@@ -39,11 +39,11 @@ RUN apk update \
     \
  # Download and prepare mongo-c-driver sources
  && curl -fL -o /tmp/mongo-c-driver.tar.gz \
-             https://github.com/mongodb/mongo-c-driver/archive/1.15.0.tar.gz \
+             https://github.com/mongodb/mongo-c-driver/archive/1.15.1.tar.gz \
  && tar -xzf /tmp/mongo-c-driver.tar.gz -C /tmp/ \
  && cd /tmp/mongo-c-driver-* \
- # Temporary fix as 1.15.0.tar.gz misses VERSION_CURRENT file.
- && echo -n "1.15.0" > VERSION_CURRENT \
+ # Temporary fix as 1.15.1.tar.gz misses VERSION_CURRENT file.
+ && echo -n "1.15.1" > VERSION_CURRENT \
  # Build mongo-c-driver from sources
  # https://git.alpinelinux.org/aports/tree/non-free/mongo-c-driver/APKBUILD
  && mkdir -p /tmp/build/mongo-c-driver/ && cd /tmp/build/mongo-c-driver/ \
