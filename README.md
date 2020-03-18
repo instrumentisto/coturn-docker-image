@@ -45,12 +45,12 @@ docker run -d --network=host instrumentisto/coturn
 
 By default, default Coturn configuration and CLI options provided in `CMD` [Dockerfile] instruction are used.
 
-1. You may either specify your own configuration file (notice the requirement of explicit `-c` CLI option).
+1. You may either specify your own configuration file instead.
 
     ```bash
     docker run -d --network=host \
                -v $(pwd)/my.conf:/etc/coturn/turnserver.conf \
-           instrumentisto/coturn -c /etc/coturn/turnserver.conf
+           instrumentisto/coturn
     ```
 
 2. Or specify command line options directly.
@@ -63,6 +63,14 @@ By default, default Coturn configuration and CLI options provided in `CMD` [Dock
                --no-multicast-peers --no-cli \
                --no-tlsv1 --no-tlsv1_1 \
                --realm=my.realm.org \  
+    ```
+    
+3. Or even specify another configuration file.
+
+    ```bash
+    docker run -d --network=host  \
+               -v $(pwd)/my.conf:/my/coturn.conf \
+           instrumentisto/coturn -c /my/coturn.conf
     ```
 
 #### Automatic detection of external IP
