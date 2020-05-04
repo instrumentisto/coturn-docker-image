@@ -6,11 +6,12 @@ services:
   - docker
 
 before_script:
-  - make image VERSION=test
+  - make image tag=test
   - make deps.bats
+  - docker pull php:alpine
 
 script:
-  - make test VERSION=test
+  - make test tag=test
 
 notifications:
   email:

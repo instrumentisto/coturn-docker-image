@@ -1,10 +1,10 @@
 # https://hub.docker.com/_/alpine
 FROM alpine:3.11
 
-MAINTAINER Instrumentisto Team <developer@instrumentisto.com>
+ARG coturn_ver=4.5.1.1
 
 
-# Build and install Coturn
+# Build and install Coturn.
 RUN apk update \
  && apk upgrade \
  && apk add --no-cache \
@@ -12,7 +12,7 @@ RUN apk update \
         curl \
  && update-ca-certificates \
     \
- # Install Coturn dependencies
+ # Install Coturn dependencies.
  && apk add --no-cache \
         libevent \
         libcrypto1.1 libssl1.1 \
@@ -20,11 +20,11 @@ RUN apk update \
         hiredis \
         mongo-c-driver \
     \
- # Install tools for building
+ # Install tools for building.
  && apk add --no-cache --virtual .tool-deps \
         coreutils autoconf g++ libtool make \
     \
- # Install Coturn build dependencies
+ # Install Coturn build dependencies.
  && apk add --no-cache --virtual .build-deps \
         linux-headers \
         libevent-dev \
@@ -33,32 +33,32 @@ RUN apk update \
         hiredis-dev \
         mongo-c-driver-dev \
     \
- # Download and prepare Coturn sources
+ # Download and prepare Coturn sources.
  && curl -fL -o /tmp/coturn.tar.gz \
-         https://github.com/coturn/coturn/archive/4.5.1.1.tar.gz \
+         https://github.com/coturn/coturn/archive/${coturn_ver}.tar.gz \
  && tar -xzf /tmp/coturn.tar.gz -C /tmp/ \
  && cd /tmp/coturn-* \
     \
- # Build Coturn from sources
+ # Build Coturn from sources.
  && ./configure --prefix=/usr \
         --turndbdir=/var/lib/coturn \
         --disable-rpath \
         --sysconfdir=/etc/coturn \
-        # No documentation included to keep image size smaller
+        # No documentation included to keep image size smaller.
         --mandir=/tmp/coturn/man \
         --docsdir=/tmp/coturn/docs \
         --examplesdir=/tmp/coturn/examples \
  && make \
     \
- # Install and configure Coturn
+ # Install and configure Coturn.
  && make install \
- # Preserve license file
+ # Preserve license file.
  && mkdir -p /usr/share/licenses/coturn/ \
  && cp /tmp/coturn/docs/LICENSE /usr/share/licenses/coturn/ \
- # Remove default config file
+ # Remove default config file.
  && rm -f /etc/coturn/turnserver.conf.default \
     \
- # Cleanup unnecessary stuff
+ # Cleanup unnecessary stuff.
  && apk del .tool-deps .build-deps \
  && rm -rf /var/cache/apk/* \
            /tmp/*

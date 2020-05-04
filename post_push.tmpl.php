@@ -10,7 +10,7 @@ tagStart=$(expr index "$IMAGE_NAME" :)
 repoName=${IMAGE_NAME:0:tagStart-1}
 
 # Tag and push image for each additional tag
-for tag in {<?= $var['image_tags']; ?>}; do
+for tag in {<?= preg_replace('/\s+/', ',', $var['image_tags']); ?>}; do
   docker tag $IMAGE_NAME ${repoName}:${tag}
   docker push ${repoName}:${tag}
 done
