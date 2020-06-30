@@ -8,7 +8,7 @@ Coturn TURN server Docker image
 
 ## Supported tags and respective `Dockerfile` links
 
-- [`4.5.1.2`, `4.5.1`, `4.5`, `4`, `latest`][Dockerfile]
+- [`4.5.1.3`, `4.5.1`, `4.5`, `4`, `latest`][Dockerfile]
 
 
 
