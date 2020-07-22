@@ -72,7 +72,7 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh \
           /usr/local/bin/detect-external-ip
 
 
-EXPOSE 8080
+EXPOSE 3478 3478/udp
 
 VOLUME ["/var/lib/coturn"]
 
