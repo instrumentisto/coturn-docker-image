@@ -1,6 +1,6 @@
 [
     {
-        "name": "porton-admin-app",
-        "imageUri": "900124160733.dkr.ecr.ca-central-1.amazonaws.com/porton-admin-app:latest"
+        "name": "porton-turn-server",
+        "imageUri": "900124160733.dkr.ecr.ca-central-1.amazonaws.com/porton-turn-server:latest"
     }
 ]
