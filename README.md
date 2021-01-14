@@ -8,7 +8,7 @@ Coturn TURN server Docker image
 
 ## Supported tags and respective `Dockerfile` links
 
-- [`4.5.1.3`, `4.5.1`, `4.5`, `4`, `latest`][Dockerfile]
+- [`4.5.2`, `4.5`, `4`, `latest`][Dockerfile]
 
 
 
@@ -121,14 +121,9 @@ Latest version of `X` Coturn major version.
 Latest version of `X.Y` Coturn minor version.
 
 
-### `X.Y.Z`
+### `X.Y.Z` or `X.Y.Z.W`
 
-Latest version of `X.Y.Z` Coturn version.
-
-
-### `X.Y.Z.W`
-
-Concrete `X.Y.Z.W` version of Coturn.
+Concrete `X.Y.Z` or `X.Y.Z.W` version of Coturn.
 
 
 

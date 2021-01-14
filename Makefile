@@ -20,7 +20,6 @@ COTURN_VER ?= $(strip \
 
 IMAGE_NAME := instrumentisto/coturn
 TAGS ?= $(COTURN_VER) \
-        4.5.1 \
         4.5 \
         4 \
         latest

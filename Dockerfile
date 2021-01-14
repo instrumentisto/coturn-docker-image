@@ -1,7 +1,7 @@
 # https://hub.docker.com/_/alpine
 FROM alpine:3.12
 
-ARG coturn_ver=4.5.1.3
+ARG coturn_ver=4.5.2
 
 
 # Build and install Coturn.
