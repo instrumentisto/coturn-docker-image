@@ -39,7 +39,7 @@ RUN apk update \
  # Install libprom dependencies.
  && apk add --no-cache \
         musl \
-        libmicrohttpd \
+        libmicrohttpd-dev \
     \
  # Install libprom tools for building.
  && apk add --no-cache --virtual .prom-tool-deps \
@@ -49,13 +49,13 @@ RUN apk update \
  # Install libprom build dependencies.
  && apk add --no-cache --virtual .prom-build-deps \
         libc-dev \
-        libmicrohttpd-dev \
     \
  # Clone libprom
  && cd /tmp/ \
     \
- && git clone --depth 1 --single-branch --branch=main https://github.com/jelmd/libprom.git \
+ && git clone --branch=main https://github.com/jelmd/libprom.git \
  && cd libprom/ \
+ && git reset --hard d842058b54a724e04a04efb38e420c4c27418af6 \
     \
  # Fix compiler warning [-Werror=incompatible-pointer-types]
  && sed -i 's/\&promhttp_handler/(MHD_AccessHandlerCallback)\&promhttp_handler/' promhttp/src/promhttp.c \
