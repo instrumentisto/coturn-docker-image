@@ -19,6 +19,7 @@ RUN apk update \
         libpq mariadb-connector-c sqlite-libs \
         hiredis \
         mongo-c-driver \
+        mariadb \
     \
  # Install tools for building.
  && apk add --no-cache --virtual .tool-deps \
@@ -32,7 +33,52 @@ RUN apk update \
         postgresql-dev mariadb-connector-c-dev sqlite-dev \
         hiredis-dev \
         mongo-c-driver-dev \
+        mariadb-dev \
     \
+#-----------------------------------------------------------------------#
+ # Install libprom dependencies.
+ && apk add --no-cache \
+        musl \
+        libmicrohttpd \
+    \
+ # Install libprom tools for building.
+ && apk add --no-cache --virtual .prom-tool-deps \
+        cmake \
+        git \
+    \
+ # Install libprom build dependencies.
+ && apk add --no-cache --virtual .prom-build-deps \
+        libc-dev \
+        libmicrohttpd-dev \
+    \
+ # Clone libprom
+ && cd /tmp/ \
+    \
+ && git clone --depth 1 --single-branch --branch=main https://github.com/jelmd/libprom.git \
+ && cd libprom/ \
+    \
+ # Fix compiler warning [-Werror=incompatible-pointer-types]
+ && sed -i 's/\&promhttp_handler/(MHD_AccessHandlerCallback)\&promhttp_handler/' promhttp/src/promhttp.c \
+    \
+ # No observable change to steps for make build --> prom promhttp
+ && sed -i 's/test: TEST := 1/test: TEST := 0/' Makefile \
+    \
+ #Compile libprom.so and libpromhttp.so
+ && make build \
+    \
+ #Copy headers and libraries
+ && cp prom/include/* /usr/include/ \
+ && cp prom/build/libprom.so /usr/lib/ \
+ && cp promhttp/include/* /usr/include/ \
+ && cp promhttp/build/libpromhttp.so /usr/lib/ \
+    \
+ && cd /tmp/ \
+    \
+ #Cleanup libprom build artifacts
+ && rm -r /tmp/libprom/ \
+ && apk del .prom-tool-deps .prom-build-deps \
+    \
+ #-----------------------------------------------------------------------#
  # Download and prepare Coturn sources.
  && curl -fL -o /tmp/coturn.tar.gz \
          https://github.com/coturn/coturn/archive/${coturn_ver}.tar.gz \
