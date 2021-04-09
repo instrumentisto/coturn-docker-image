@@ -20,6 +20,10 @@ RUN apk update \
         hiredis \
         mongo-c-driver \
     \
+ # Install tools for `detect-external-ip.sh`.
+ && apk add --no-cache \
+        bind-tools \
+    \
  # Install tools for building.
  && apk add --no-cache --virtual .tool-deps \
         coreutils autoconf g++ libtool make \
