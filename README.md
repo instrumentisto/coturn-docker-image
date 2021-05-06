@@ -6,6 +6,15 @@ Coturn TURN server Docker image
 
 
 
+## Status
+
+__PROJECT IS CLOSED AND ARCHIVED. NO MAINTAINING WILL BE CONTINUED.__
+
+Consider to use [official `coturn/coturn` Docker image](https://hub.docker.com/r/coturn/coturn) instead ([source repo](https://github.com/coturn/coturn/tree/master/docker/coturn)).
+
+
+
+
 ## Supported tags and respective `Dockerfile` links
 
 - [`4.5.2`, `4.5`, `4`, `latest`][Dockerfile]
